@@ -79,55 +79,5 @@ void loop()
   
   // >>> End of Thermistor Section <<<
   
-  // >>> LM19 Section <<<
-  // take in analog data from LM19 temp sensor and run it through
-  // formulas and conversions
   
-  // multiply analog read by VCC which is 3.3V on LaunchPad
-  // divide that result by ADC range (256 for 8 bit, 1024 for 10 bit, 
-  // 4096 for 12 bit) which is the max resolution of the analog pin
-  
-  // Approximated linear transfer function from datasheet
-  // slightly less accurate but good at typical temps
-  float vin = 3.3 * analogRead(6) / 4096.0;
-  Serial.print("LM19: ");
-  Serial.print("vin=");
-  Serial.print(vin);
-  Serial.print("  ");
-  // plug in value to celcius temp equation
-  float tempC = (1.8663 - vin) / 0.01169;
-  // run celcius to fahrenheit conversion
-  float tempF = 1.8 * tempC + 32.0;
-  // print temperature to serial
-  Serial.print("tempC=");
-  Serial.print(tempC);
-  Serial.print("  ");
-  Serial.print("tempF=");
-  Serial.println(tempF);
-  Serial.println();
-  delay(1000);
-  
-  // More accurate parabolic formula from the datasheet
-  // Covers full temperature range of LM19
-  /*
-  float vin = 3.3 * analogRead(6) / 4096.0;
-  Serial.print("LM19: ");
-  Serial.print("vin=");
-  Serial.print(vin);
-  Serial.print("  ");
-  // Datasheet Formula: tempC = sqrt((2.1962 * 10^6) + ((1.8639 - vin)/(3.88 * 10^(-6)))) - 1481.96
-  float tempC = sqrt(2196200 + ((1.8639 - vin) / 0.00000388)) - 1481.96;
-  float tempF = 1.8 * tempC + 32.0;
-  
-  // print temperature to serial
-  Serial.print("tempC=");
-  Serial.print(tempC);
-  Serial.print("  ");
-  Serial.print("tempF=");
-  Serial.println(tempF);
-  Serial.println();
-  delay(100);
-  */
-  
-  // >>> End of LM19 Section <<<
 }
